@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Role Based Authentication",
-  description: "My Own Eay to do Role Based Authentication without NextAuth...",
+  description: "My Own Way to do Role Based Authentication without NextAuth...",
 };
 
 export default function RootLayout({
