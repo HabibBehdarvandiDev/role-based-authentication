@@ -20,7 +20,7 @@ export function useAuth() {
       if (decodedToken.role === "admin" || decodedToken.role === "developer") {
         router.push("/dashboard");
       } else {
-        router.push("/posts");
+        router.push("/errors/unauthorized");
       }
     } catch (error) {
       console.error("Error decoding authToken:", error);
