@@ -52,13 +52,19 @@ export async function POST(req: NextRequest) {
   }
 
   const jwtPayload = {
+    first_name: isUserExist.first_name,
+    last_name: isUserExist.last_name,
     username: isUserExist.username,
     role: isUserExist.role,
+    permission: isUserExist.permission,
   };
 
   const authToken = jwt.sign(jwtPayload, process.env.JWT_SECRET!, {
     expiresIn: 3600,
   });
 
-  return NextResponse.json({ status: 200, authToken: authToken });
+  return NextResponse.json(
+    { status: 200, authToken: authToken },
+    { status: 200 }
+  );
 }

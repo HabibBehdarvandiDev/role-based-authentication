@@ -3,17 +3,8 @@ import prisma from "@/db/prisma";
 import { SignUpRequestSchema } from "./schema";
 import { UserRole } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { authenticate } from "../../authMiddleware";
 
 export async function POST(req: NextRequest) {
-  const isAuthenticated = await authenticate(req);
-  
-  if (!isAuthenticated) {
-    return NextResponse.json({
-      error: "Unauthorized: Invalid or Missing AuthToken",
-    });
-  }
-
   let body;
   try {
     body = await req.json();
@@ -37,7 +28,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { first_name, last_name, username, password, role } = validation.data;
+  const { first_name, last_name, username, password, role, permission } =
+    validation.data;
 
   const isUsernameUnique = await prisma.user.findUnique({
     where: {
@@ -63,6 +55,7 @@ export async function POST(req: NextRequest) {
       username,
       password: hashedPassword,
       role: role as UserRole,
+      permission: permission ? permission : { read: true },
     },
   });
 

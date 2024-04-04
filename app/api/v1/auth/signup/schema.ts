@@ -18,6 +18,7 @@ const SignUpRequestSchema = z.object({
   username: z.string(),
   password: z.string(),
   role: z.enum(userRoleValues as [string, ...string[]]),
+  permission: z.record(z.boolean()),
 });
 
 export { SignUpRequestSchema };
